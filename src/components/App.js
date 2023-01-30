@@ -1,40 +1,34 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import '../styles/App.css';
-import LocationDisplay from './LocationDisplay';
+import React, { Component, useState } from "react";
+import "../styles/App.css";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
+import LocationDisplayComp from "./LocationDisplay";
+function About() {
+  return <div>You are on the about page.</div>;
+}
+function Home() {
+  return <div>You are home.</div>;
+}
 
-const Home = () => <h1>You are home</h1>;
-const About = () => <h1>You are on the about page</h1>;
-const NoMatch = () => <h1>No match</h1>;
+function Invalid() {
+  return <div>No match</div>;
+}
 
-function App() {
-  return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
-        <LocationDisplay />
+class App extends Component {
+  render() {
+    return (
+      <div id="main">
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />
-          <Route component={NoMatch} />
+          <Route path="/" component={Invalid} />
         </Switch>
+        <LocationDisplayComp />
       </div>
-    </Router>
-  );
+    );
+  }
 }
 
 export default App;
+export const LocationDisplay = LocationDisplayComp;
